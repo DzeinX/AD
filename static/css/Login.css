@@ -1,0 +1,94 @@
+@import "base.css";
+
+.form {
+    width: 400px;
+    padding: 32px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    background-color: rgba(255, 255, 255, 0.7);;
+    color: var(--color-navigate-text);
+}
+
+.errorlist.nonfield {
+    margin-bottom: 30px;
+    text-align: justify;
+    font-size: 16px;
+}
+
+.align-center {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+.form_input,
+.form_button {
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.form_title {
+    text-align: center;
+    margin: 0 0 32px 0;
+    font-weight: normal;
+}
+
+.form_group {
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.form_label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form_input {
+    width: 100%;
+    padding: 0 0 10px 0;
+    border: none;
+    border-bottom: 1px solid var(--color-navigate-text);
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--color-navigate-text);
+    letter-spacing: 1px;
+}
+
+.form_input:focus {
+    border-bottom: 1px solid var(--color-navigate-contrast);
+}
+
+.form_button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+    border-radius: 6px;
+    color: var(--color-navigate-text);
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form_button:focus,
+.form_button:hover {
+    background-color: var(--color-navigate-contrast);
+    color: white;
+}
+
+.form_input:focus ~ .form_label,
+.form_input:not(:placeholder-shown) ~ .form_label {
+    top: -18px;
+    font-size: 12px;
+}

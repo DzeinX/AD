@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Главная страница
+{% endblock %}
+
+{% block link_css %}
+    {% load static %}
+    <!-- ===== Link Swiper's CSS ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="{% static "css/main_page.css" %}">
+    <link rel="stylesheet" href="{% static "css/ButtonAnimation.css" %}">
+{% endblock %}
+
+{% block body %}
+    <div class="page first-page">
+        <div class="image-container" style="background-image: url({% static "img/mounts.jpg" %})"></div>
+        <div class="first-page__header parallax">
+            <h1>Реклама на экранах университета</h1>
+        </div>
+    </div>
+    <div id="about" class="page second-page">
+        <div class="second-page__header">
+            <h2>Немного о нас</h2>
+        </div>
+    </div>
+    <div id="services" class="page third-page">
+        <div class="new-window">
+            <div class="film" onclick="closeModal()"></div>
+            <div class="order-window">
+                <div class="close" onclick="closeModal()">×</div>
+            </div>
+        </div>
+
+        <div class="third-page__header">
+            <h2>Услуги</h2>
+        </div>
+        <div class="slide-services">
+            <div class="swiper mySwiper services">
+                <div class="swiper-wrapper services-grid">
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide service">
+                        <div class="order">
+                            <a class="order__link button" onclick="openModal()">Разместить рекламу</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <div id="contacts" class="page forth-page">
+        <form action="" method="POST" class="form__contacts">
+            <div class="form__title">
+                <h2>Наши контакты</h2>
+            </div>
+            {% if messages %}
+                <ul class="msg-list">
+                    {% for message in messages %}
+                        <li id="msg-{{ forloop.counter }}" {% if message.tags %}
+                            class="fade-active {{ message.tags }}"{% endif %}>
+                            <span>{{ message }}</span>
+                            <span class="delete-msg" id="{{ forloop.counter }}">×</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="container">
+                <div class="container__left">
+                    <div class="number">
+                        Телефон: +7 *** *** ** **
+                    </div>
+                    <div class="email">
+                        Почта: <a href="mailto:#">****@mail.ru</a>
+                    </div>
+                    <div class="main-site">
+                        Сайт нашего вуза <a href="https://vogu35.ru/" target="_ blank">vogu35.ru</a>
+                    </div>
+                    <div class="location">
+                        г.Вологда, ул.Галкинская 1
+                    </div>
+                    <div class="social-networks">
+                        <a href="#" target="_ blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" target="_ blank"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="container__right">
+                    {% csrf_token %}
+                    <input type="email" name="email" class="form-input" placeholder="E-mail">
+                    <input type="text" name="first-name" class="form-input" placeholder="Имя">
+                    <textarea name="user-message" class="form-input" placeholder="Сообщение"></textarea>
+                    <input type="submit" value="Отправить" class="send-msg">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        const modal = document.querySelector('.new-window');
+
+        function openModal() {
+            setTimeout(() => { modal.classList.add("active"); }, 500)
+        }
+        function closeModal() {
+            modal.classList.remove("active")
+        }
+    </script>
+    <script>
+        const deleteMsgs = document.querySelectorAll('.delete-msg');
+
+        deleteMsgs.forEach((delMsg) => {
+            delMsg.addEventListener("click", () => {
+                let msg = document.getElementById("msg-" + delMsg.id);
+                msg.classList.add("fade-close");
+                setTimeout(() => {
+                    msg.remove()
+                }, 500);
+            });
+        });
+    </script>
+    <script>
+        const buttons = document.querySelectorAll(".button");
+
+        buttons.forEach((element) => {
+            element.addEventListener("click", (e) => {
+                e.preventDefault()
+                element.classList.add("animate")
+
+                setTimeout(() => {
+                    element.classList.remove("animate")
+                }, 600);
+            })
+        });
+    </script>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+{% endblock %}
